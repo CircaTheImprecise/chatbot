@@ -5,70 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dialogflow Chatbot</title>
     <style>
-        body {
-            background-color: #333; /* Dark grey background */
-            color: #fff; /* White text */
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        #chat-container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        #chat {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #555;
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #444; /* Darker grey background for chat area */
-        }
-
-        .user-message, .bot-message {
-            padding: 8px;
-            margin: 5px;
-            border-radius: 5px;
-        }
-
-        .user-message {
-            background-color: #007BFF; /* Blue for user messages */
-        }
-
-        .bot-message {
-            background-color: #28A745; /* Green for bot messages */
-        }
-
-        #user-input {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin: 0;
-            border: none;
-            border-radius: 5px;
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        #user-input:focus {
-            outline: none;
-        }
-
-        button {
-            width: 50px;
-            padding: 10px;
-            margin: 0;
-            border: none;
-            border-radius: 5px;
-            display: inline-block;
-            vertical-align: top;
-            cursor: pointer;
-            background-color: #17A2B8; /* Turquoise for the button */
-            color: #fff;
-        }
+        /* Your existing styles here... */
     </style>
 </head>
 <body>
@@ -77,6 +14,9 @@
         <input type="text" id="user-input" placeholder="Stell mir eine Frage ...">
         <button onclick="sendMessage()">Abschicken</button>
     </div>
+
+    <!-- Add an audio element to the HTML -->
+    <audio id="audioPlayer" style="display: none;"></audio>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -99,6 +39,35 @@
             const messageClass = sender === 'user' ? 'user-message' : 'bot-message';
             chat.append(`<div class="${messageClass}">${text}</div>`);
             chat.scrollTop(chat.prop("scrollHeight"));
+
+            // Play audio for specific bot messages
+            if (sender === 'bot') {
+                playAudioForBotMessage(text);
+            }
+        }
+
+        function playAudioForBotMessage(message) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            let audioSrc = '';
+
+            // Map bot messages to corresponding audio files
+            switch (message.toLowerCase()) {
+                case 'hello':
+                    audioSrc = 'path/to/your/audio1.mp3';
+                    break;
+                case 'bye':
+                    audioSrc = 'path/to/your/audio2.mp3';
+                    break;
+                // Add more cases for other messages and audio files as needed
+                default:
+                    // Use a default audio file if no match is found
+                    audioSrc = 'path/to/your/default-audio.mp3';
+                    break;
+            }
+
+            // Set the audio source and play it
+            audioPlayer.src = audioSrc;
+            audioPlayer.play();
         }
 
         function callDialogflow(userInput) {
