@@ -81,34 +81,34 @@
     <!-- Add an audio element to the HTML -->
     <audio id="audioPlayer" style="display: none;"></audio>
 
-   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js"></script>
-    <script>
-        const projectId = 'chatbot-kyyh'; // Replace with your Dialogflow project ID
-        const sessionId = '123456'; // You can generate a unique session ID
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/domains/de.js"></script>
+<script>
+    const projectId = 'chatbot-kyyh'; // Replace with your Dialogflow project ID
+    const sessionId = '123456'; // You can generate a unique session ID
 
-        // Load your Dialogflow credentials
-        const credentials = {
-            client_email: 'firebase-adminsdk-wneop@chatbot-411818.iam.gserviceaccount.com',
-            private_key: -----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDXvfbOQLRwMvJa\nBmDN0sBBOLpkt+X6dxkYZY6I2odoT+z1wniW8rmvux1EKZ2OHN5eSESVL8xNPNFp\nrmzXe0zXjAwprUlu+TLLwHjXL5/YtnHUHUUpoS6sx1G9x1IJT4G9XKt9wrsYItCM\nZC8y9EtfTbF6/3e+OlsBlCR2EKjptD1WLq7exE+bQR2UkkfOvv53GTY9bJP/kvHF\nQ3FL9TI2A3GziOKOP6w5ebRNEvyMxJR2e8dhmb9Jif53/NR50AWMd0BDtc0sXQIv\njlBqn/ILZK/jXaedNQU26zVD3LE4ptqQKb9/z/qFhLrHAtr/VrXlqURg8Fbcuaa/\n4nD2QC0PAgMBAAECggEAMAQNfBYWkqokGjk1LlnrhBiWE3iCbN447Z8cvAS3AlZX\njNL9d8sJ3LyuZM9GS6zNKPq4mOOMetxAV18Exmigz5BR3Ky+nT5FOefafToSP29L\nokPpcrx24OlzneNQtNXHMFgBqvm+Hj8RX02k25hXdhyalZ9qDSJ7wrwv6T8H+QtF\nuyTEGhKEowIqIjleDOqe+5lQX16SFajN/ZKkpKSwAxO6Ls1QN0NCrAbKzvywZcIl\nk/axumVVayh/y9XYnT2sZNx5Ch1Dee9anob74OXgSBmTkpNESzV/4xvscPM3Zxx+\nMcmgia4RvSXrX+BrrXVQspTJGfxB14g7mrx9jA27gQKBgQDyMkos+YNg8gtPmN7b\nTO3oRlT2ln4lcVoMNM3/fAKXtHI20sqoziHbkCvH0BJyhzi7J0UiX1fyzM7XoOn6\noIiDeKe1nPEKlnbeyvyHYIGItEs+otlH1nIeCqe9RGQ4cH5BLnylmyVewpXDzkTp\n5b15AVIXm1ql4/Fo65lsByvVrwKBgQDkCbKa+pW6BBxV5FTjkZDZ/IeFvTRmaGbR\nBd1F4H4WhrJhIUUI+8OjiFFZYQjVhL83B72eJQ9KP+aFbz9sPaGfKu2FRT/e21oA\nL/5QZT+P8/kwc2aFpK5HYJGvKcZSesuXM0Y2Ba/ZTywseI1wPftqdNR+wcUVDT7U\n7U+4A/pWoQKBgQClVveUZHHwCMz39eCNzaLMYtc1z98mKI/UrWfD9iC++AzQqG55\ndt9eSLnamo09alqsSU7E/FnKA09hnRSeaGFJf2DedtmG5NkZl3F16cgETzDe/cVf\naWJWZ+fDKaFRdlp6nQWy+Is2eZhMJ9Cb7J7AsMoeG4xym33+pngCa5LdOQKBgBSu\nrHxR7fKJHOjNZMWfFjwvIzuGBZKkNW8P0RndWpJAdT1J/zDpZL0YSAiLPHnhKFad\nZR1KzzA0y3ues2nlzRrakeBcf4Z+7pLFx5MTG8i6oAc88Dd+0C+5Gn2AlHQ2nvB/\nvgZ4TZKwE5mU9X8QoBTvs7YrbOyT3vcA7xIJilMBAoGAFMhU2D2wOZtnzr/h3mv3\nCaXIMHCpeWiUKMhg88KmuwUX7ZB/tW55XGIKbg/3xx8mjz/cV9XkbWPUfYleY435\n40pfmu3mCB8ZSfhylNRCMEVSFE4lB4HHNJWiisKRGrG5KoovCmE7xywZQWH9DTXT\ng3LHZYUGekMaHbozzOd+m6A=\n-----END PRIVATE KEY-----\n",
-        };
+    // Load your Dialogflow credentials
+    const credentials = {
+        client_email: 'firebase-adminsdk-wneop@chatbot-411818.iam.gserviceaccount.com',
+        private_key: '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDXvfbOQLRwMvJa\nBmDN0sBBOLpkt+X6dxkYZY6I2odoT+z1wniW8rmvux1EKZ2OHN5eSESVL8xNPNFp\nrmzXe0zXjAwprUlu+TLLwHjXL5/YtnHUHUUpoS6sx1G9x1IJT4G9XKt9wrsYItCM\nZC8y9EtfTbF6/3e+OlsBlCR2EKjptD1WLq7exE+bQR2UkkfOvv53GTY9bJP/kvHF\nQ3FL9TI2A3GziOKOP6w5ebRNEvyMxJR2e8dhmb9Jif53/NR50AWMd0BDtc0sXQIv\njlBqn/ILZK/jXaedNQU26zVD3LE4ptqQKb9/z/qFhLrHAtr/VrXlqURg8Fbcuaa/\n4nD2QC0PAgMBAAECggEAMAQNfBYWkqokGjk1LlnrhBiWE3iCbN447Z8cvAS3AlZX\njNL9d8sJ3LyuZM9GS6zNKPq4mOOMetxAV18Exmigz5BR3Ky+nT5FOefafToSP29L\nokPpcrx24OlzneNQtNXHMFgBqvm+Hj8RX02k25hXdhyalZ9qDSJ7wrwv6T8H+QtF\nuyTEGhKEowIqIjleDOqe+5lQX16SFajN/ZKkpKSwAxO6Ls1QN0NCrAbKzvywZcIl\nk/axumVVayh/y9XYnT2sZNx5Ch1Dee9anob74OXgSBmTkpNESzV/4xvscPM3Zxx+\nMcmgia4RvSXrX+BrrXVQspTJGfxB14g7mrx9jA27gQKBgQDyMkos+YNg8gtPmN7b\nTO3oRlT2ln4lcVoMNM3/fAKXtHI20sqoziHbkCvH0BJyhzi7J0UiX1fyzM7XoOn6\noIiDeKe1nPEKlnbeyvyHYIGItEs+otlH1nIeCqe9RGQ4cH5BLnylmyVewpXDzkTp\n5b15AVIXm1ql4/Fo65lsByvVrwKBgQDkCbKa+pW6BBxV5FTjkZDZ/IeFvTRmaGbR\nBd1F4H4WhrJhIUUI+8OjiFFZYQjVhL83B72eJQ9KP+aFbz9sPaGfKu2FRT/e21oA\nL/5QZT+P8/kwc2aFpK5HYJGvKcZSesuXM0Y2Ba/ZTywseI1wPftqdNR+wcUVDT7U\n7U+4A/pWoQKBgQClVveUZHHwCMz39eCNzaLMYtc1z98mKI/UrWfD9iC++AzQqG55\ndt9eSLnamo09alqsSU7E/FnKA09hnRSeaGFJf2DedtmG5NkZl3F16cgETzDe/cVf\naWJWZ+fDKaFRdlp6nQWy+Is2eZhMJ9Cb7J7AsMoeG4xym33+pngCa5LdOQKBgBSu\nrHxR7fKJHOjNZMWfFjwvIzuGBZKkNW8P0RndWpJAdT1J/zDpZL0YSAiLPHnhKFad\nZR1KzzA0y3ues2nlzRrakeBcf4Z+7pLFx5MTG8i6oAc88Dd+0C+5Gn2AlHQ2nvB/\nvgZ4TZKwE5mU9X8QoBTvs7YrbOyT3vcA7xIJilMBAoGAFMhU2D2wOZtnzr/h3mv3\nCaXIMHCpeWiUKMhg88KmuwUX7ZB/tW55XGIKbg/3xx8mjz/cV9XkbWPUfYleY435\n40pfmu3mCB8ZSfhylNRCMEVSFE4lB4HHNJWiisKRGrG5KoovCmE7xywZQWH9DTXT\ng3LHZYUGekMaHbozzOd+m6A=\n-----END PRIVATE KEY-----\n",
+    };
 
-        const sessionClient = new DF.SessionsClient({
-            credentials: credentials,
-        });
+    const sessionClient = new DF.SessionsClient({
+        credentials: credentials,
+    });
 
-        function sendMessage() {
-            const userInput = $('#user-input').val();
-            if (userInput.trim() === '') return;
+    function sendMessage() {
+        const userInput = $('#user-input').val();
+        if (userInput.trim() === '') return;
 
-            displayMessage('user', userInput);
-            $('#user-input').val('');
+        displayMessage('user', userInput);
+        $('#user-input').val('');
 
-            // Call Dialogflow API
-            callDialogflow(userInput);
-        }
+        // Call Dialogflow API
+        callDialogflow(userInput);
+    }
 
-        async function callDialogflow(userInput) {
+    async function callDialog {
             const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
             const request = {
