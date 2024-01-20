@@ -4,6 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dialogflow Chatbot</title>
+    <style>
+        body {
+            background-color: #333; /* Dark grey background */
+            color: #fff; /* White text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #chat-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        #chat {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #555;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #444; /* Darker grey background for chat area */
+        }
+
+        .user-message, .bot-message {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #007BFF; /* Blue for user messages */
+        }
+
+        .bot-message {
+            background-color: #28A745; /* Green for bot messages */
+        }
+
+        #user-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 0;
+            border: none;
+            border-radius: 5px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        #user-input:focus {
+            outline: none;
+        }
+
+        button {
+            width: 50px;
+            padding: 10px;
+            margin: 0;
+            border: none;
+            border-radius: 5px;
+            display: inline-block;
+            vertical-align: top;
+            cursor: pointer;
+            background-color: #17A2B8; /* Turquoise for the button */
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div id="chat-container">
@@ -14,54 +80,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        const projectId = 'chatbot-kyyh'; // Replace with your Dialogflow project ID
-        const sessionId = '123456'; // You can generate a unique session ID
-
-        function sendMessage() {
-            const userInput = $('#user-input').val();
-            if (userInput.trim() === '') return;
-
-            displayMessage('user', userInput);
-            $('#user-input').val('');
-
-            // Call Dialogflow API
-            callDialogflow(userInput);
-        }
-
-        function displayMessage(sender, text) {
-            const chat = $('#chat');
-            const messageClass = sender === 'user' ? 'user-message' : 'bot-message';
-            chat.append(`<div class="${messageClass}">${text}</div>`);
-            chat.scrollTop(chat.prop("scrollHeight"));
-        }
-
-        function callDialogflow(userInput) {
-            const apiUrl = `https://dialogflow.googleapis.com/v2/projects/${projectId}/agent/sessions/${sessionId}:detectIntent`;
-
-            const requestData = {
-                queryInput: {
-                    text: {
-                        text: userInput,
-                        languageCode: 'en-US',
-                    },
-                },
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: `${apiUrl}?key=AIzaSyA0y8KtRzgi3sb9BZOJw0xUTt6opAyhgBc`, // Replace with your Dialogflow API key
-                contentType: 'application/json',
-                dataType: 'json',
-                data: JSON.stringify(requestData),
-                success: function (response) {
-                    const botReply = response.queryResult.fulfillmentText;
-                    displayMessage('bot', botReply);
-                },
-                error: function (error) {
-                    console.error('Error calling Dialogflow:', error);
-                },
-            });
-        }
+        // Your existing JavaScript code here
     </script>
 </body>
 </html>
