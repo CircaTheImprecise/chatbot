@@ -18,13 +18,15 @@
         async function sendMessage() {
             const userInput = document.getElementById('userInput').value;
 
-            // Make an API call to Dialogflow (you need to replace YOUR_DIALOGFLOW_API_KEY and YOUR_PROJECT_ID)
-            const response = await fetch(`https://api.dialogflow.com/v1/query?v=20150910&query=${userInput}&lang=en&sessionId=1234567890`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer AIzaSyA0y8KtRzgi3sb9BZOJw0xUTt6opAyhgBc'
-                }
-            });
+           <!-- Replace YOUR_DIALOGFLOW_API_KEY with your actual Dialogflow API key -->
+const response = await fetch(`https://api.dialogflow.com/v1/query?v=20150910&query=${userInput}&lang=en&sessionId=1234567890&projectId=chatbot-411818`, {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer AIzaSyA0y8KtRzgi3sb9BZOJw0xUTt6opAyhgBc'
+    }
+});
+
+                    
 
             const responseData = await response.json();
 
