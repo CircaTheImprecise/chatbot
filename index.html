@@ -3,76 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Chatbot</title>
+    <title>Dialogflow Chatbot</title>
 </head>
 <body>
 
-<div id="chat-container">
-    <div id="chat-log"></div>
-    <input type="text" id="user-input" placeholder="Type your message...">
+    <h1>Dialogflow Chatbot</h1>
+    
+    <div id="chat"></div>
+    <input type="text" id="userInput" placeholder="Type your message...">
     <button onclick="sendMessage()">Send</button>
-</div>
 
-<script>
-// Replace YOUR_DIALOGFLOW_PROJECT_ID with your actual Dialogflow project ID
-const projectId = 'chatbot-411818';
-const apiUrl = `https://dialogflow.googleapis.com/v2/projects/${projectId}/agent/sessions`;
+    <script>
+        // Function to send user input to Dialogflow
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
 
-let sessionId = Math.random().toString(36).substring(7);
-let chatLog = document.getElementById('chat-log');
-let userInput = document.getElementById('user-input');
+            // Make an API call to Dialogflow (you need to replace YOUR_DIALOGFLOW_API_KEY and YOUR_PROJECT_ID)
+            const response = await fetch(`https://api.dialogflow.com/v1/query?v=20150910&query=${userInput}&lang=en&sessionId=1234567890`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer YOUR_DIALOGFLOW_API_KEY'
+                }
+            });
 
-// Define a mapping of bot responses to corresponding MP3 files
-const mp3Mapping = {
-    'hello': 'magic.mp3',
-    'goodbye': 'path/to/goodbye.mp3',
-    // Add more mappings as needed
-};
+            const responseData = await response.json();
 
-function sendMessage() {
-    let userMessage = userInput.value;
-    if (userMessage.trim() === '') return;
+            // Extract the intent or response from Dialogflow
+            const intent = responseData.result.metadata.intentName;
+            
+            // Play the corresponding MP3 file
+            playAudio(intent);
+        }
 
-    displayMessage('user', userMessage);
-    userInput.value = '';
-
-    fetch(`${apiUrl}/${sessionId}:detectIntent`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            queryInput: {
-                text: {
-                    text: userMessage,
-                    languageCode: 'en',
-                },
-            },
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        let botResponse = data.queryResult.fulfillmentText;
-        displayMessage('bot', botResponse);
-
-        // Play MP3 based on bot response using the mapping
-        playMp3(botResponse);
-    })
-    .catch(error => console.error('Error:', error));
-}
-
-function displayMessage(sender, message) {
-    chatLog.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
-}
-
-function playMp3(response) {
-    // Check if the response has a corresponding MP3 file in the mapping
-    if (mp3Mapping.hasOwnProperty(response.toLowerCase())) {
-        let audio = new Audio(mp3Mapping[response.toLowerCase()]);
-        audio.play();
-    }
-}
-</script>
+        // Function to play audio based on the intent
+        function playAudio(intent) {
+            const audioElement = new Audio(`${intent}.mp3`); // Assuming the MP3 files are named based on intents
+            audioElement.play();
+        }
+    </script>
 
 </body>
 </html>
