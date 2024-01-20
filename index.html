@@ -3,17 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dialogflow Chatbot</title>
+    <title>Custom Chatbot</title>
 </head>
 <body>
 
-  
-<iframe
-    allow="microphone;"
-    width="350"
-    height="430"
-    src="https://console.dialogflow.com/api-client/demo/embedded/6746f9a3-8a06-4470-bec7-558815732850">
-</iframe>
-  
+<div id="chat-container">
+    <div id="chat-log"></div>
+    <input type="text" id="user-input" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+// Replace YOUR_DIALOGFLOW_PROJECT_ID with your actual Dialogflow project ID
+const projectId = '6746f9a3-8a06-4470-bec7-558815732850';
+const apiUrl = `https://dialogflow.googleapis.com/v2/projects/${projectId}/agent/sessions`;
+
+let sessionId = Math.random().toString(36).substring(7);
+let chatLog = document.getElementById('chat-log');
+let userInput = document.getElementById('user-input');
+
+// Define a mapping of bot responses to corresponding MP3 files
+const mp3Mapping = {
+    'hello': 'path/to/hello.mp3',
+    'goodbye': 'path/to/goodbye.mp3',
+    // Add more mappings as needed
+};
+
+function sendMessage() {
+    let userMessage = userInput.value;
+    if (userMessage.trim() === '') return;
+
+    displayMessage('user', userMessage);
+    userInput.value = '';
+
+    fetch(`${apiUrl}/${sessionId}:detectIntent`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            queryInput: {
+                text: {
+                    text: userMessage,
+                    languageCode: 'en',
+                },
+            },
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        let botResponse = data.queryResult.fulfillmentText;
+        displayMessage('bot', botResponse);
+
+        // Play MP3 based on bot response using the mapping
+        playMp3(botResponse);
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function displayMessage(sender, message) {
+    chatLog.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
+}
+
+function playMp3(response) {
+    // Check if the response has a corresponding MP3 file in the mapping
+    if (mp3Mapping.hasOwnProperty(response.toLowerCase())) {
+        let audio = new Audio(mp3Mapping[response.toLowerCase()]);
+        audio.play();
+    }
+}
+</script>
+
 </body>
 </html>
