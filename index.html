@@ -17,10 +17,11 @@
 </iframe>
 
 <!-- JavaScript to handle Dialogflow responses and audio playback -->
+<!-- JavaScript to handle Dialogflow responses and audio playback -->
 <script>
   // Function to play audio
-  function playAudio(audioUrl) {
-    var audio = new Audio(audioUrl);
+  function playAudio(audioFilename) {
+    var audio = new Audio(audioFilename);
     audio.play();
   }
 
@@ -36,10 +37,12 @@
           // Check if the response text contains an audio trigger
           var audioTriggerIndex = message.text.text.indexOf('PlayAudio:');
           if (audioTriggerIndex !== -1) {
-            // Extract the audio URL
-            var audioUrl = message.text.text.substring(audioTriggerIndex + 10).trim();
+            // Extract the audio filename
+            var audioFilename = message.text.text.substring(audioTriggerIndex + 10).trim();
+            // Construct the relative path to the audio file
+            var audioPath = 'audio/' + audioFilename;
             // Play the audio
-            playAudio(audioUrl);
+            playAudio(audioPath);
           }
         }
       });
@@ -55,6 +58,7 @@
     });
   }
 </script>
+
 
 </body>
 </html>
