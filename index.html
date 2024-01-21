@@ -7,38 +7,53 @@
 </head>
 <body>
 
-<!-- Dialogflow Messenger iframe -->
+<!-- Your Dialogflow Messenger iframe -->
 <iframe
   allow="microphone;"
   width="350"
   height="430"
-  src="https://console.dialogflow.com/api-client/demo/embedded/6746f9a3-8a06-4470-bec7-558815732850">
+  src="https://console.dialogflow.com/api-client/demo/embedded/6746f9a3-8a06-4470-bec7-558815732850"
+  id="dialogflowFrame">
 </iframe>
 
-<!-- Audio player -->
-<audio id="audioPlayer" controls style="display: none;">
-  <source src="magic.mp3" type="audio/mp3">
-  Your browser does not support the audio tag.
-</audio>
-
-<!-- Dialogflow Messenger script -->
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<!-- JavaScript to handle Dialogflow responses and audio playback -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.addEventListener("DFMChatMessage", function(event) {
-      var message = event.detail;
-      // Check for a specific response from the bot
-      if (message.isBotResponse && message.message.text.indexOf("Audio command") !== -1) {
-        playAudio();
-      }
-    });
-  });
+  // Function to play audio
+  function playAudio(audioUrl) {
+    var audio = new Audio(audioUrl);
+    audio.play();
+  }
 
- function playAudio() {
-  console.log("Attempting to play audio");
-  var audioPlayer = document.getElementById("audioPlayer");
-  audioPlayer.play();
-}
+  // Function to handle Dialogflow responses
+  function handleDialogflowResponse(event) {
+    // Check if the event data contains a response from Dialogflow
+    if (event.data && event.data.queryResult) {
+      var fulfillmentMessages = event.data.queryResult.fulfillmentMessages;
+
+      // Loop through fulfillment messages to find audio-related information
+      fulfillmentMessages.forEach(function(message) {
+        if (message.platform === 'PLATFORM_UNSPECIFIED' && message.text && message.text.text) {
+          // Check if the response text contains an audio trigger
+          var audioTriggerIndex = message.text.text.indexOf('PlayAudio:');
+          if (audioTriggerIndex !== -1) {
+            // Extract the audio URL
+            var audioUrl = message.text.text.substring(audioTriggerIndex + 10).trim();
+            // Play the audio
+            playAudio(audioUrl);
+          }
+        }
+      });
+    }
+  }
+
+  // Add an event listener to the Dialogflow iframe
+  var dialogflowFrame = document.getElementById('dialogflowFrame');
+  if (dialogflowFrame) {
+    dialogflowFrame.addEventListener('load', function() {
+      // Add a message event listener to handle Dialogflow responses
+      window.addEventListener('message', handleDialogflowResponse);
+    });
+  }
 </script>
 
 </body>
