@@ -17,7 +17,7 @@
 
 <!-- Audio player -->
 <audio id="audioPlayer" controls style="display: none;">
-  <source src="magic.mp3" type="audio/mp3">
+  <source src="your-audio-file.mp3" type="audio/mp3">
   Your browser does not support the audio tag.
 </audio>
 
@@ -27,8 +27,8 @@
   document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("DFMChatMessage", function(event) {
       var message = event.detail;
-      // Check for a specific command in the user's message
-      if (message.text === "!play_audio") {
+      // Check for a specific response from the bot
+      if (message.isBotResponse && message.message.text.indexOf("Audio command") !== -1) {
         playAudio();
       }
     });
