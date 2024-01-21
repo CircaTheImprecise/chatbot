@@ -27,7 +27,8 @@
   document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("DFMChatMessage", function(event) {
       var message = event.detail;
-      if (message.payload === "play_audio") {
+      // Check for a specific command in the user's message
+      if (message.text === "!play_audio") {
         playAudio();
       }
     });
